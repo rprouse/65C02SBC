@@ -1,0 +1,18 @@
+{
+  "python.pythonPath": "C:\\Users\\rob\\Anaconda3\\python.exe",
+  "files.exclude": {
+    "*.o": true,
+    "**/__pycache__": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.pytest_cache": true,
+    "**/.svn": true,
+    "**/.vs": true,
+    "**/*.sln.user": true,
+    "**/CVS": true,
+    "**/desktop.ini": true,
+    "env": true,
+    "venv": true
+  }
+}

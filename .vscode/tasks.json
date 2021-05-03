@@ -1,0 +1,17 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ca65: Compile and Link Current File",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "type": "shell",
+      "command": "cl65 -t none -o ${fileDirname}${pathSeparator}${fileBasenameNoExtension}.bin -l ${fileDirname}${pathSeparator}${fileBasenameNoExtension}.lst -C ${workspaceFolder}${pathSeparator}65C02.cfg ${file}",
+      "problemMatcher": ["$ca65", "$ld65", "$ld65-config", "$ld65-unresolved"]
+    }
+  ]
+}
