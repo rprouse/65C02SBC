@@ -11,7 +11,7 @@ E  = %10000000
 RW = %01000000
 RS = %00100000
 
-reset:            ; Initialize the LCD Display
+reset:           ; Initialize the LCD Display
   lda #%11111111 ; Set all pins on port B to output
   sta DDRB
 
@@ -51,7 +51,8 @@ reset:            ; Initialize the LCD Display
   lda #'e'
   JSR output
 
-  JSR space
+  lda #' '
+  JSR output
 
   lda #'t'
   JSR output
@@ -107,10 +108,6 @@ configure:
   lda #0         ; Clear RS/RW/E bits
   sta PORTA
   RTS
-
-space:
-  lda #' '
-  JSR output
 
 ; Output the letter in the A register to the LCD
 output:
