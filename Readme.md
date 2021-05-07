@@ -20,8 +20,8 @@ power on reset circuit based on the one from the C64 but that is not complete.
 
 After reset, the CPU reads from address 0x7FFC and jumps to the address
 contained there. Eventually I would like to load [Tiny BASIC](https://en.wikipedia.org/wiki/Tiny_BASIC)
-into the ROM and launch that, but for now, it just jumps to a program in ROM
-and executes it.
+or a version of [Microsoft BASIC](https://www.pagetable.com/?p=46) into the ROM
+and launch that, but for now, it just jumps to a program in ROM and executes it.
 
 ![Computer build on 2021-05-06](./images/2021-05-06-computer.png)
 
