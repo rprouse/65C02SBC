@@ -11,8 +11,10 @@ E  = %10000000
 RW = %01000000
 RS = %00100000
 
-header:
-  .asciiz "Hello World!"
+header:   ;1234567890123456
+  .asciiz "  65C02 Single"
+footer:
+  .asciiz " Board Computer"
 
 reset:           ; Initialize the LCD Display
   lda #%11111111 ; Set all pins on port B to output
@@ -41,6 +43,19 @@ reset:           ; Initialize the LCD Display
   inx
   bra @header_loop
 @header_done:
+
+  ; Set the DDRAM Address to start of second line
+  lda #%11000000
+  JSR configure
+
+  ldx #0
+@footer_loop:
+  lda footer,x
+  beq @footer_done
+  jsr output
+  inx
+  bra @footer_loop
+@footer_done:
 
 loop:
   jmp loop
