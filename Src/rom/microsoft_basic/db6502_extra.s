@@ -28,9 +28,13 @@ init:
       jsr _system_init
 
       write_lcd #ms_basic
+      ldx #$00
+      ldy #$01
+      jsr lcd_set_position
+      write_lcd #ms_copyright
 
       lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_INPUT_KEYBOARD | TTY_CONFIG_OUTPUT_SERIAL)
-      jsr _tty_init      
+      jsr _tty_init
 
       ; lda #(ACIA_PARITY_DISABLE | ACIA_ECHO_DISABLE | ACIA_TX_INT_DISABLE_RTS_LOW | ACIA_RX_INT_DISABLE | ACIA_DTR_LOW)
       ; sta ACIA_COMMAND
@@ -50,7 +54,7 @@ ShowStartMsg:
 WaitForKeypress:
 	JSR	MONRDKEY
 	BCC	WaitForKeypress
-	
+
 	AND	#$DF			; Make upper case
 	CMP	#'W'			; compare with [W]arm start
 	BEQ	WarmStart
@@ -127,11 +131,14 @@ Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
 
 ms_basic:
-  .asciiz "Microsoft BASIC"
+  .asciiz "65C02 SBC BASIC VERSION 1.0"
+
+ms_copyright:
+  .asciiz "COPYRIGHT 1977 BY MICROSOFT CO."
 
 LOAD:
 	RTS
-	
+
 SAVE:
 	RTS
 

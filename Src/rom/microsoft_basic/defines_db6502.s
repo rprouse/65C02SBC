@@ -25,7 +25,7 @@ INPUTBUFFER     := $0900
 STACK_TOP		:= $FC
 SPACE_FOR_GOSUB := $33
 NULL_MAX		:= $0A
-WIDTH			:= 72
+WIDTH			:= 80
 WIDTH2			:= 56
 
 ; memory layout
