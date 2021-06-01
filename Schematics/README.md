@@ -151,3 +151,17 @@ The following components are required for DB65C02 Computer
 
 [
 _Important note about the ACIA chip_: There are basically two types of chips that can be used. Modern, rated to higher frequencies WDC65C51 and older, Rockwell 6551P chips, rated only for 1MHz. The problem with former is that there is a bug with interrupt handling on transmit operation - both IRQ and status flag polling fail, you have to implement dead loop to wait long enough for the byte to be transmitted. Latter chip is probably no longer manufactured, but can be purchased online from Chinese sellers - these are cheap, but not all of them work correctly, so get more than one to be safe. For me the second chip worked correctly and both polling and IRQ-based transmit work as expected.
+
+## Connecting the clock module
+
+Connect clock module as follows:
+
+| Computer connection          | Clock module connection |
+| ---------------------------- | ----------------------- |
+| CLK input (middle pin on J1) | CLK output              |
+| UART +5V                     | +5V                     |
+| UART GND                     | GND                     |
+
+It might seem strange that the clock module is powered from UART port, but in fact it doesn't matter which of the power outputs you choose. I use this one, since this one is closes to the clock connector (J1). This is one thing I didn't consider when designing the PCB - I provided GND reference in J1, but the power is missing...
+
+The whole thing will be powered from Arduino via USB - don't worry, the load will not be too high.
