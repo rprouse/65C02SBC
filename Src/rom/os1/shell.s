@@ -40,22 +40,18 @@ _run_shell:
 
         ; Display banner
         writeln_tty #msgemptyline
-        writeln_tty #bannerh1
-        writeln_tty #bannerh2
         writeln_tty #banner1
         writeln_tty #banner2
         writeln_tty #banner3
         writeln_tty #banner4
         writeln_tty #banner5
-        writeln_tty #bannerh2
-        writeln_tty #bannerh1
+        writeln_tty #banner6
         writeln_tty #msgemptyline
 
         ; Display hello messages
-        write_tty #os1_version
+        writeln_tty #os1_version
         writeln_tty #msghello1
         writeln_tty #msghello2
-        writeln_tty #msghello3
 
         register_system_break #system_break_handler
 
@@ -183,25 +179,22 @@ param_pointer:
         .res 2
 
         .segment "RODATA"
-bannerh1:
-        .asciiz "+---------------------------+"
-bannerh2:
-        .asciiz "|                           |"
+
 banner1:
-        .asciiz "|   ####   ####     #   #   |"
+        .asciiz "8'''88 8''''8   e 88"
 banner2:
-        .asciiz "|  ##  ## ##       #   ##   |"
+        .asciiz "8    8 8        8  8"
 banner3:
-        .asciiz "|  #    #  ###    #   # #   |"
+        .asciiz "8    8 8eeeee  8   8"
 banner4:
-        .asciiz "|  ##  ##    ##  #      #   |"
+        .asciiz "8    8     88  8   8"
 banner5:
-        .asciiz "|   ####  ####  #      ###  |"
-msghello1: 
-        .asciiz " (Alpha+C)"
-msghello2: 
-        .asciiz "Welcome to OS/1 shell for DB6502 computer"
-msghello3:
+        .asciiz "8    8 e   88 8   8888"
+banner6:
+        .asciiz "8eeee8 8eee88 e   8888"
+msghello1:
+        .asciiz "Welcome to OS/1 shell for 65C02_SBC computer"
+msghello2:
         .asciiz "Enter HELP to get list of possible commands"
 msgload:
         .asciiz "Initiating load operation..."
@@ -255,7 +248,7 @@ menu:
         menuitem monitor_cmd, 1, monitor_desc, _process_monitor
         menuitem blink_cmd,   2, blink_desc,   _process_blink
         menuitem info_cmd,    1, info_desc,    _process_info
-        endmenu 
+        endmenu
 
 load_cmd:
         .asciiz "LOAD"
@@ -266,14 +259,14 @@ run_cmd:
 run_desc:
         .asciiz "RUN - execute loaded application"
 monitor_cmd:
-        .asciiz "MONITOR"
+        .asciiz "MON"
 monitor_desc:
-        .asciiz "MONITOR - run embedded monitor application"
+        .asciiz "MON - run embedded monitor application"
 blink_cmd:
-        .asciiz "BLINK"
+        .asciiz "LED"
 blink_desc:
-        .asciiz "BLINK on/off - toggle onboard blink LED"
+        .asciiz "LED on/off - toggle onboard blink LED"
 info_cmd:
-        .asciiz "INFO"
+        .asciiz "INF"
 info_desc:
-        .asciiz "INFO - display system information"
+        .asciiz "INF - display system information"

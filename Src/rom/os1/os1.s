@@ -67,18 +67,18 @@ init:
       write_lcd #shell_connected
       jsr _run_shell
       ; Disable interrupt processing during init
-      sei 
+      sei
       jmp init
 
       .segment "RODATA"
 
 os1_version:
-      .asciiz "OS/1 version 0.3.0C"
+      .asciiz "OS/1 version 0.3"
 keyboard_disconnected:
       .asciiz "No keyboard"
 keyboard_connected:
       .asciiz "Keyboard connected"
 instruction:
-      .asciiz "Connect serial port (19200 N8S1 CTS/RTS) and press any key in terminal window"
+      .asciiz "Connect serial port (19200 N8S1 CTS/RTS) & press any key in terminal"
 shell_connected:
       .asciiz "Shell connected"
