@@ -131,10 +131,10 @@ Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
 
 ms_basic:
-  .asciiz "65C02 SBC BASIC VERSION 1.0"
+  .asciiz "65C02 SBC BASIC V1.0"
 
 ms_copyright:
-  .asciiz "COPYRIGHT 1977 BY MICROSOFT CO."
+  .asciiz "(c) 1977 MICROSOFT"
 
 LOAD:
 	RTS
