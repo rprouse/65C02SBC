@@ -412,7 +412,7 @@ QT_BYTES_FREE:
   .endif
 QT_BASIC:
   .ifdef DB6502
-        .byte   "65C02 SBC BASIC VERSION 1.0"
+        .byte   "65C02 SBC BASIC VERSION 1.1"
   .endif
   .ifdef OSI
         .byte   "OSI 6502 BASIC VERSION 1.0 REV 3.2"

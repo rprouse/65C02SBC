@@ -29,9 +29,13 @@ init:
 
       write_lcd #ms_basic
       ldx #$00
-      ldy #$01
+      ldy #$02
       jsr lcd_set_position
       write_lcd #ms_copyright
+      ldx #$00
+      ldy #$03
+      jsr lcd_set_position
+      write_lcd #my_copyright
 
       lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_INPUT_KEYBOARD | TTY_CONFIG_OUTPUT_SERIAL)
       jsr _tty_init
@@ -131,10 +135,13 @@ Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
 
 ms_basic:
-  .asciiz "65C02 SBC BASIC V1.0"
+  .asciiz "65C02 SBC BASIC V1.1"
 
 ms_copyright:
-  .asciiz "(c) 1977 MICROSOFT"
+  .asciiz "(c) 1977 Microsoft"
+
+my_copyright:
+  .asciiz "(c) 2021 Rob Prouse"
 
 LOAD:
 	RTS

@@ -7,7 +7,7 @@ CONFIG_DATAFLG := 1
 CONFIG_NULL := 1
 CONFIG_PRINT_CR := 0 ; print CR when line end reached
 CONFIG_SCRTCH_ORDER := 3
-CONFIG_SMALL := 1
+;CONFIG_SMALL := 1
 
 ; zero page
 ZP_START1 = $00
@@ -22,11 +22,14 @@ USR             := $000A
 INPUTBUFFER     := $0900
 
 ; constants
-STACK_TOP		:= $FC
+STACK_TOP       := $FC
 SPACE_FOR_GOSUB := $33
-NULL_MAX		:= $0A
-WIDTH			:= 80
-WIDTH2			:= 56
+NULL_MAX        := $0A
+WIDTH	          := 80
+WIDTH2          := 56
+
+; monitor functions
+SYS             := $FFDE
 
 ; memory layout
-RAMSTART2		:= __USERRAM_START__
+RAMSTART2       := __USERRAM_START__
