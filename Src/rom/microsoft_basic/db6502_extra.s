@@ -141,11 +141,15 @@ ms_copyright:
 my_copyright:
   .asciiz "(c) 2021 Rob Prouse"
 
+; TODO: Figure out how to implement these commands
 LOAD:
 	RTS
 
 SAVE:
-	RTS
+  RTS
+
+SYS:
+  RTS
 
 .segment "VECTORS"
 

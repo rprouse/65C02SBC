@@ -28,8 +28,5 @@ NULL_MAX        := $0A
 WIDTH	          := 80
 WIDTH2          := 56
 
-; monitor functions
-SYS             := $FFDE
-
 ; memory layout
 RAMSTART2       := __USERRAM_START__
