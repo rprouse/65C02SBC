@@ -56,20 +56,18 @@ ShowStartMsg:
 
 ; Wait for a cold/warm start selection
 WaitForKeypress:
-	JSR	MONRDKEY
-	BCC	WaitForKeypress
+      JSR	MONRDKEY
+      BCC	WaitForKeypress
 
-	AND	#$DF			; Make upper case
-	CMP	#'W'			; compare with [W]arm start
-	BEQ	WarmStart
-
-	CMP	#'C'			; compare with [C]old start
-	BNE	ShowStartMsg
-
-	JMP	COLD_START	; BASIC cold start
+      AND	#$DF			; Make upper case
+      CMP	#'W'			; compare with [W]arm start
+      BEQ	WarmStart
+      CMP	#'C'			; compare with [C]old start
+      BNE	ShowStartMsg
+      JMP	COLD_START	; BASIC cold start
 
 WarmStart:
-	JMP	RESTART		; BASIC warm start
+     	JMP	RESTART		; BASIC warm start
 
 MONCOUT:
 ;	PHA
@@ -129,7 +127,7 @@ NotCTRLC:
 ;   RTS
 
 StartupMessage:
-	.byte	$0C,"Cold [C] or warm [W] start?",$0D,$0A,$00
+	.byte	$0C,"Cold [C] or Warm [W] start?",$0D,$0A,$00
 
 Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
