@@ -71,6 +71,9 @@
 		keyword_rts "OPEN", OPEN
 		keyword_rts "CLOSE", CLOSE
 .endif
+.ifdef DB6502
+		keyword_rts "SYS", SYS
+.endif
 .ifndef CONFIG_SMALL
 		keyword_rts "GET", GET
 .endif
@@ -119,6 +122,9 @@ UNFNC:
 		keyword_addr "USR", USR
   .endif
 .endif
+.ifdef DB6502
+		keyword_addr "USR", USR
+.endif
 		keyword_addr "FRE", FRE
 		keyword_addr "POS", POS
 		keyword_addr "SQR", SQR
@@ -141,6 +147,9 @@ UNFNC_ATN:
 		keyword_addr "GETC", GETC
 .endif
 .ifndef CONFIG_NO_POKE
+		keyword_addr "PEEK", PEEK
+.endif
+.ifdef DB6502
 		keyword_addr "PEEK", PEEK
 .endif
 		keyword_addr "LEN", LEN

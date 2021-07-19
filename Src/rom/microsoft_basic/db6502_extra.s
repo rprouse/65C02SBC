@@ -29,9 +29,13 @@ init:
 
       write_lcd #ms_basic
       ldx #$00
-      ldy #$01
+      ldy #$02
       jsr lcd_set_position
       write_lcd #ms_copyright
+      ldx #$00
+      ldy #$03
+      jsr lcd_set_position
+      write_lcd #my_copyright
 
       lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_INPUT_KEYBOARD | TTY_CONFIG_OUTPUT_SERIAL)
       jsr _tty_init
@@ -52,20 +56,18 @@ ShowStartMsg:
 
 ; Wait for a cold/warm start selection
 WaitForKeypress:
-	JSR	MONRDKEY
-	BCC	WaitForKeypress
+      JSR	MONRDKEY
+      BCC	WaitForKeypress
 
-	AND	#$DF			; Make upper case
-	CMP	#'W'			; compare with [W]arm start
-	BEQ	WarmStart
-
-	CMP	#'C'			; compare with [C]old start
-	BNE	ShowStartMsg
-
-	JMP	COLD_START	; BASIC cold start
+      AND	#$DF			; Make upper case
+      CMP	#'W'			; compare with [W]arm start
+      BEQ	WarmStart
+      CMP	#'C'			; compare with [C]old start
+      BNE	ShowStartMsg
+      JMP	COLD_START	; BASIC cold start
 
 WarmStart:
-	JMP	RESTART		; BASIC warm start
+     	JMP	RESTART		; BASIC warm start
 
 MONCOUT:
 ;	PHA
@@ -125,25 +127,39 @@ NotCTRLC:
 ;   RTS
 
 StartupMessage:
-	.byte	$0C,"Cold [C] or warm [W] start?",$0D,$0A,$00
+	.byte	$0C,"Cold [C] or Warm [W] start?",$0D,$0A,$00
 
 Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
 
 ms_basic:
-  .asciiz "65C02 SBC BASIC V1.0"
+  .asciiz "65C02 SBC BASIC V1.1"
 
 ms_copyright:
-  .asciiz "(c) 1977 MICROSOFT"
+  .asciiz "(c) 1977 Microsoft"
 
+my_copyright:
+  .asciiz "(c) 2021 Rob Prouse"
+
+not_implemented:
+  .asciiz "NOT IMPLEMENTED"
+
+; TODO: Figure out how to implement these commands
 LOAD:
-	RTS
+  writeln_tty #not_implemented
+  rts
 
 SAVE:
-	RTS
+  writeln_tty #not_implemented
+  rts
+
+SYS:
+  jsr     FRMNUM      ; Convert EXP1 to 16-bit number into LINNUM
+  jsr     GETADR
+  jmp     (LINNUM)
 
 .segment "VECTORS"
 
-      .word   $0000
-      .word   init
-      .word   _interrupt_handler
+.word   $0000
+.word   init
+.word   _interrupt_handler

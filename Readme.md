@@ -25,6 +25,16 @@ design. Much of the software here started out being written by David.
 
 ![Computer build on 2021-05-28](./images/DB65C02.jpg)
 
+## Memory Map
+
+|Segment|BE6502 |DB6502 |Comment |
+|-------|-------------|-------------|------------------------------------------------------------------|
+|RAM |0x0000-0x3FFF|0x0000-0x7FFF| |
+|VIA1 | |0x9000 |Connected to keyboard/LCD/blink LED in my build |
+|VIA2 |0x6000 |0x8800 |Can be used to run Ben's programs |
+|ACIA | |0x8400 | |
+|ROM |0x8000-0xFFFF|0xA000-0xFFFF|**First 8K are not accessible, but need to be burned to the chip**|
+
 ## 16x2 LCD addressing scheme
 
 |   |   |   |   |   |   |
