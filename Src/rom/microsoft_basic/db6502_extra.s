@@ -154,23 +154,9 @@ SAVE:
   rts
 
 SYS:
-.ifdef CONFIG_PEEK_SAVE_LINNUM
-  lda     LINNUM+1
-  pha
-  lda     LINNUM
-  pha
-.endif
   jsr     FRMNUM      ; Convert EXP1 to 16-bit number into LINNUM
   jsr     GETADR
   jmp     (LINNUM)
-.ifdef CONFIG_PEEK_SAVE_LINNUM
-  pla
-  sta     LINNUM
-  pla
-  sta     LINNUM+1
-.endif
-  rts
-
 
 .segment "VECTORS"
 
