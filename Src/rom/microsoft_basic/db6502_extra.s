@@ -141,18 +141,39 @@ ms_copyright:
 my_copyright:
   .asciiz "(c) 2021 Rob Prouse"
 
+not_implemented:
+  .asciiz "NOT IMPLEMENTED"
+
 ; TODO: Figure out how to implement these commands
 LOAD:
-	RTS
+  writeln_tty #not_implemented
+  rts
 
 SAVE:
-  RTS
+  writeln_tty #not_implemented
+  rts
 
 SYS:
-  RTS
+.ifdef CONFIG_PEEK_SAVE_LINNUM
+  lda     LINNUM+1
+  pha
+  lda     LINNUM
+  pha
+.endif
+  jsr     FRMNUM      ; Convert EXP1 to 16-bit number into LINNUM
+  jsr     GETADR
+  jmp     (LINNUM)
+.ifdef CONFIG_PEEK_SAVE_LINNUM
+  pla
+  sta     LINNUM
+  pla
+  sta     LINNUM+1
+.endif
+  rts
+
 
 .segment "VECTORS"
 
-      .word   $0000
-      .word   init
-      .word   _interrupt_handler
+.word   $0000
+.word   init
+.word   _interrupt_handler
