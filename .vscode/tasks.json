@@ -4,10 +4,19 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "ca65: Compile and Link Current File",
+      "label": "Make All",
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "type": "shell",
+      "command": "make -C Src clean all",
+      "problemMatcher": ["$ca65", "$ld65", "$ld65-config", "$ld65-unresolved"]
+    },
+    {
+      "label": "ca65: Compile and Link Current File",
+      "group": {
+        "kind": "build"
       },
       "type": "shell",
       "command": "cl65 -t none -o ${fileDirname}${pathSeparator}${fileBasenameNoExtension}.bin -l ${fileDirname}${pathSeparator}${fileBasenameNoExtension}.lst -C ${workspaceFolder}${pathSeparator}65C02.cfg ${file}",
