@@ -8,35 +8,32 @@ to using [cc65](https://cc65.github.io/) because it allows me to specify the
 [memory layout](65C02.cfg) of this machine and ships with the memory layouts
 of many more machines like the VIC20, C64, Commander X16, Atari consoles, etc.
 
-The computer itself is based on the design by [Ben Eater](https://eater.net/6502).
-If you are interested in following along, I highly recommend his video series.
-
-This computer has 32K RAM in the lower address space and a 32K ROM in the upper
-half of the 64K address space. It is a 65C02 CPU, so the first 256 bytes of RAM
-are Zero Page (ZP), the second 256 bytes are for the stack.
-
-After the computer boots, the reset button must be pressed. I plan on added a
-power on reset circuit based on the one from the C64 but that is not complete.
-
-After reset, the CPU reads from address 0x7FFC and jumps to the address
-contained there. Eventually I would like to load [Tiny BASIC](https://en.wikipedia.org/wiki/Tiny_BASIC)
-or a version of [Microsoft BASIC](https://www.pagetable.com/?p=46) into the ROM
-and launch that, but for now, it just jumps to a program in ROM and executes it.
+The breadboard version of this computer is based on the design by
+[Ben Eater](https://eater.net/6502). If you are interested in following along,
+I highly recommend his video series.
 
 ![Computer build on 2021-05-06](./images/2021-05-06-computer.png)
 
-- The top board is the clock circuit based on 555 timers. The clock can be
-adjusted or you can single step the clock.
-- The board with three chips, [65C02](https://westerndesigncenter.com/wdc/documentation/w65c02s.pdf)
-CPU on the left, [AT28C256](http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf)
-32K EEPROM center and [HM62256](https://datasheetspdf.com/pdf/544610/Hitachi/HM62256LP/1)
-32K RAM left
-- The ribbon cables are the 16 bit address bus and 8 bit data bus going to an
-Arduino Mega that I use to monitor the addresses and data on the bus.
-- Second board from the bottom is the [65C22](http://archive.6502.org/datasheets/wdc_w65c22s_mar_2004.pdf) Versatile Interface Adapter (VIA)
-- The bottom breadboard is for I/O with an [HD44780U](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf)
-based 16x2 LCD display and currently 5 push buttons for input.
-- The pen on the right is an [LP-560 logic probe](https://www.elenco.com/wp-content/uploads/2017/10/LP560-3.pdf) for testing the circuit.
+After completing the breadboard version, I found an updated version with two VIA
+chips, a 6551 based ACIA chip for serial communications and a PS/2 keyboard port
+with an ATtiny4313 based keyboard controller by
+[Dawid Buchwald](https://github.com/dbuchwald/6502) who writes about the
+[designing the computer on Hackaday.io](https://hackaday.io/project/174128/logs?sort=oldest).
+
+I had boards made by PCBWay.com and built a version of the computer based on David's
+design. Much of the software here started out being written by David.
+
+![Computer build on 2021-05-28](./images/DB65C02.jpg)
+
+## Memory Map
+
+|Segment|BE6502 |DB6502 |Comment |
+|-------|-------------|-------------|------------------------------------------------------------------|
+|RAM |0x0000-0x3FFF|0x0000-0x7FFF| |
+|VIA1 | |0x9000 |Connected to keyboard/LCD/blink LED in my build |
+|VIA2 |0x6000 |0x8800 |Can be used to run Ben's programs |
+|ACIA | |0x8400 | |
+|ROM |0x8000-0xFFFF|0xA000-0xFFFF|**First 8K are not accessible, but need to be burned to the chip**|
 
 ## 16x2 LCD addressing scheme
 

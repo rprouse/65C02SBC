@@ -1,5 +1,4 @@
 {
-  "python.pythonPath": "C:\\Users\\rob\\Anaconda3\\python.exe",
   "files.exclude": {
     "*.o": true,
     "**/__pycache__": true,
