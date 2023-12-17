@@ -4,7 +4,7 @@
         .include "lcd.inc"
         .include "acia.inc"
         .include "blink.inc"
-        .include "keyboard.inc"
+        ;.include "keyboard.inc"
 
         .import __USERRAM_START__
         .import __USERRAM_SIZE__
@@ -59,7 +59,7 @@ _system_init:
         ; Initialize ACIA
         jsr _acia_init
         ; Initialize keyboard
-        jsr _keyboard_init
+        ;jsr _keyboard_init
         ; Disable BCD mode
         cld
         ; Enable interrupt processing
@@ -86,7 +86,7 @@ check_via1:
         and VIA1_IER
         and #%00000010 ; IFR_CA1
         beq not_keyboard
-        jsr _handle_keyboard_irq
+        ;jsr _handle_keyboard_irq
 not_keyboard:
         pla
 check_via2:

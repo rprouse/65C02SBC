@@ -2,7 +2,7 @@
       .include "lcd.inc"
       .include "core.inc"
       .include "acia.inc"
-      .include "keyboard.inc"
+      ;.include "keyboard.inc"
       .include "syscalls.inc"
 
 .segment "CODE"
@@ -37,7 +37,7 @@ init:
       jsr lcd_set_position
       write_lcd #my_copyright
 
-      lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_INPUT_KEYBOARD | TTY_CONFIG_OUTPUT_SERIAL)
+      lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_OUTPUT_SERIAL)
       jsr _tty_init
 
       ; lda #(ACIA_PARITY_DISABLE | ACIA_ECHO_DISABLE | ACIA_TX_INT_DISABLE_RTS_LOW | ACIA_RX_INT_DISABLE | ACIA_DTR_LOW)

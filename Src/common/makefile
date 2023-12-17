@@ -6,8 +6,8 @@ AR65_BINARY=ar65
 
 CPU_FLAG=--cpu 65C02
 ARCH_FLAG=-t none
-CLOCK_FLAG=-Dclock_mode_flag=$(CLOCK_MODE_FLAG) 
-ACIA_FLAG=-Dacia_tx_irq=$(ACIA_TX_IRQ) 
+CLOCK_FLAG=-Dclock_mode_flag=$(CLOCK_MODE_FLAG)
+ACIA_FLAG=-Dacia_tx_irq=$(ACIA_TX_IRQ)
 BUILD_FLAG=-Ddb6502
 
 CC65_FLAGS=$(CPU_FLAG) $(ARCH_FLAG) $(CLOCK_FLAG) $(ACIA_FLAG) -O
@@ -104,7 +104,6 @@ COMMON_SOURCES=syscalls.s    \
 							 acia.s        \
                blink.s       \
 							 core.s        \
-							 keyboard.s    \
 							 lcd.s         \
 							 $(LCD_MODULE) \
 							 modem.s       \
@@ -235,7 +234,7 @@ endif
 
 # Burn ROM to EEPROM
 install: $(FIRMWARE_BINARY)
-	$(MINIPRO_BINARY) -p $(EEPROM_MODEL) -w $<	
+	$(MINIPRO_BINARY) -p $(EEPROM_MODEL) -w $<
 
 # Emulate code
 emu: $(FIRMWARE_BINARY)

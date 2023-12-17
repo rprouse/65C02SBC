@@ -35,25 +35,22 @@
 
         .code
 _run_shell:
-        lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_INPUT_KEYBOARD | TTY_CONFIG_OUTPUT_SERIAL)
+        lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_OUTPUT_SERIAL)
         jsr _tty_init
 
         ; Display banner
         writeln_tty #msgemptyline
-        writeln_tty #bannerh1
-        writeln_tty #bannerh2
         writeln_tty #banner1
         writeln_tty #banner2
         writeln_tty #banner3
         writeln_tty #banner4
         writeln_tty #banner5
-        writeln_tty #bannerh2
-        writeln_tty #bannerh1
+        writeln_tty #banner6
+        writeln_tty #banner7
         writeln_tty #msgemptyline
 
         ; Display hello messages
-        write_tty #os1_version
-        writeln_tty #msghello1
+        writeln_tty #os1_version
         writeln_tty #msghello2
         writeln_tty #msghello3
 
@@ -78,7 +75,7 @@ _process_run:
         jsr _deregister_user_break
         rts
 
-_process_blink:
+_process_led:
         sta tokens_pointer
         stx tokens_pointer+1
 
@@ -97,7 +94,7 @@ _process_blink:
         jsr _blink_led
         rts
 @error:
-        writeln_tty #blinkerror
+        writeln_tty #lederror
         rts
 
 _process_monitor:
@@ -183,34 +180,32 @@ param_pointer:
         .res 2
 
         .segment "RODATA"
-bannerh1:
-        .asciiz "+---------------------------+"
-bannerh2:
-        .asciiz "|                           |"
 banner1:
-        .asciiz "|   ####   ####     #   #   |"
+        .asciiz " ######  ########     ###    ########  ##    ##    ##"
 banner2:
-        .asciiz "|  ##  ## ##       #   ##   |"
+        .asciiz "##    ## ##     ##   ## ##   ##     ## ##   ##   ####"
 banner3:
-        .asciiz "|  #    #  ###    #   # #   |"
+        .asciiz "##       ##     ##  ##   ##  ##     ## ##  ##      ##"
 banner4:
-        .asciiz "|  ##  ##    ##  #      #   |"
+        .asciiz " ######  ########  ##     ## ########  #####       ##"
 banner5:
-        .asciiz "|   ####  ####  #      ###  |"
-msghello1: 
-        .asciiz " (Alpha+C)"
-msghello2: 
-        .asciiz "Welcome to OS/1 shell for DB6502 computer"
+        .asciiz "      ## ##        ######### ##   ##   ##  ##      ##"
+banner6:
+        .asciiz "##    ## ##        ##     ## ##    ##  ##   ##     ##"
+banner7:
+        .asciiz " ######  ##        ##     ## ##     ## ##    ##  ######"
+msghello2:
+        .asciiz "Spark/1 for 65C02 computer"
 msghello3:
-        .asciiz "Enter HELP to get list of possible commands"
+        .asciiz "HELP to get list of commands"
 msgload:
-        .asciiz "Initiating load operation..."
+        .asciiz "Initiating load..."
 msgrun:
         .asciiz "Running program..."
 msgmonitor:
-        .asciiz "Running monitor application..."
+        .asciiz "Running monitor..."
 msginfo:
-        .asciiz "OS/1 System Information"
+        .asciiz "Spark/1 System Information"
 clock_msg1:
         .asciiz "System clock running at "
 clock_msg2:
@@ -242,10 +237,10 @@ via2_addr_msg:
 acia_addr_msg:
         .asciiz "ACIA address: 0x"
 os1prompt:
-        .asciiz "OS/1>"
+        .asciiz "Spark/1>"
 msgemptyline:
         .byte $00
-blinkerror:
+lederror:
         .asciiz "Incorrect parameters passed"
 msgsystembreak:
         .asciiz "System break initiated, returning to shell..."
@@ -253,9 +248,9 @@ menu:
         menuitem load_cmd,    1, load_desc,    _process_load
         menuitem run_cmd,     1, run_desc,     _process_run
         menuitem monitor_cmd, 1, monitor_desc, _process_monitor
-        menuitem blink_cmd,   2, blink_desc,   _process_blink
+        menuitem led_cmd,   2, led_desc,   _process_led
         menuitem info_cmd,    1, info_desc,    _process_info
-        endmenu 
+        endmenu
 
 load_cmd:
         .asciiz "LOAD"
@@ -268,11 +263,11 @@ run_desc:
 monitor_cmd:
         .asciiz "MONITOR"
 monitor_desc:
-        .asciiz "MONITOR - run embedded monitor application"
-blink_cmd:
-        .asciiz "BLINK"
-blink_desc:
-        .asciiz "BLINK on/off - toggle onboard blink LED"
+        .asciiz "MONITOR - run embedded monitor"
+led_cmd:
+        .asciiz "LED"
+led_desc:
+        .asciiz "LED on/off - toggle onboard LED"
 info_cmd:
         .asciiz "INFO"
 info_desc:

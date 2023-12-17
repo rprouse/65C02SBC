@@ -20,9 +20,9 @@ acia_rx_rptr:          .res 1
 acia_rx_wptr:          .res 1
 acia_tx_rptr:          .res 1
 acia_tx_wptr:          .res 1
-keyboard_conn:         .res 1
-keyboard_rptr:         .res 1
-keyboard_wptr:         .res 1
+;keyboard_conn:         .res 1
+;keyboard_rptr:         .res 1
+;keyboard_wptr:         .res 1
 tty_config:            .res 1
 system_break_flag:     .res 1
 system_break_address:  .res 2

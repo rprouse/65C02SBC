@@ -2,7 +2,7 @@
         .include "blink.inc"
         .include "lcd.inc"
         .include "acia.inc"
-        .include "keyboard.inc"
+        ;.include "keyboard.inc"
         .include "modem.inc"
         .include "zeropage.inc"
         .include "utils.inc"
@@ -17,7 +17,7 @@
         .export _syscall__blink_init
         .export _syscall__lcd_init
         .export _syscall__acia_init
-        .export _syscall__keyboard_init
+        ;.export _syscall__keyboard_init
 ; Core routines
         .export _syscall__register_user_break
         .export _syscall__deregister_user_break
@@ -38,15 +38,15 @@
         .export _syscall__via2_get_register
         .export _syscall_via2_set_register
         .export _syscall__via2_set_register
-; ACIA routines 
+; ACIA routines
         .export _syscall__acia_is_data_available
         .export _syscall__acia_read_byte
         .export _syscall__acia_write_byte
         .export _syscall__acia_write_string
 ; Keyboard routines
-        .export _syscall__keyboard_is_connected
-        .export _syscall__keyboard_is_data_available
-        .export _syscall__keyboard_read_char
+        ;.export _syscall__keyboard_is_connected
+        ;.export _syscall__keyboard_is_data_available
+        ;.export _syscall__keyboard_read_char
 ; LCD routines
         .export _syscall__lcd_print
         .export _syscall__lcd_print_char
@@ -120,8 +120,8 @@ _syscall__lcd_init:
         SYSCALL_VECTOR _lcd_init
 _syscall__acia_init:
         SYSCALL_VECTOR _acia_init
-_syscall__keyboard_init:
-        SYSCALL_VECTOR _keyboard_init
+;_syscall__keyboard_init:
+        ;SYSCALL_VECTOR _keyboard_init
 _syscall__register_user_break:
         SYSCALL_VECTOR _register_user_break
 _syscall__deregister_user_break:
@@ -162,12 +162,12 @@ _syscall__acia_write_byte:
         SYSCALL_VECTOR _acia_write_byte
 _syscall__acia_write_string:
         SYSCALL_VECTOR _acia_write_string
-_syscall__keyboard_is_connected:
-        SYSCALL_VECTOR _keyboard_is_connected
-_syscall__keyboard_is_data_available:
-        SYSCALL_VECTOR _keyboard_is_data_available
-_syscall__keyboard_read_char:
-        SYSCALL_VECTOR _keyboard_read_char
+;_syscall__keyboard_is_connected:
+        ;SYSCALL_VECTOR _keyboard_is_connected
+;_syscall__keyboard_is_data_available:
+        ;SYSCALL_VECTOR _keyboard_is_data_available
+;_syscall__keyboard_read_char:
+        ;SYSCALL_VECTOR _keyboard_read_char
 _syscall__lcd_print:
         SYSCALL_VECTOR _lcd_print
 _syscall__lcd_print_char:

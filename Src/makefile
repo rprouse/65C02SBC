@@ -11,8 +11,7 @@ LOADABLE_PROJECTS_FOLDER=load
 
 ADDRESS_MODE=ext
 
-FIRMWARE_PROJECTS = minimal_bootloader   \
-                    os1                  \
+FIRMWARE_PROJECTS = os1                  \
 										microsoft_basic			 \
 										ewoz
 
@@ -22,7 +21,6 @@ LOADABLE_PROJECTS = 01_blink_test        \
                     04_blink_large       \
                     05_simple_shell      \
                     06_memdump           \
-										07_keyboard_test     \
 										08_system_break_test \
 										09_monitor           \
 										10_menu              \

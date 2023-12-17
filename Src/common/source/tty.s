@@ -2,7 +2,7 @@
         .include "string.inc"
         .include "acia.inc"
         .include "lcd.inc"
-        .include "keyboard.inc"
+        ;.include "keyboard.inc"
         .include "utils.inc"
         .include "macros.inc"
 
@@ -17,7 +17,7 @@
         .export _tty_send_character
 
 TTY_CONFIG_INPUT_SERIAL   = %00000001
-TTY_CONFIG_INPUT_KEYBOARD = %00000010
+;TTY_CONFIG_INPUT_KEYBOARD = %00000010
 TTY_CONFIG_OUTPUT_SERIAL  = %00000100
 TTY_CONFIG_OUTPUT_LCD     = %00001000
 
@@ -101,10 +101,10 @@ tty_read_line:
         ; check if special character (0-31)
         cmp #$20
         bmi @read_char_loop
-        ; check for extra chars (127-255) 
-        cmp #$7e 
+        ; check for extra chars (127-255)
+        cmp #$7e
         bpl @read_char_loop
-        ; check for buffer full 
+        ; check for buffer full
         cpy line_buffer_length
         ; if full, go back - accept enter or backspace
         beq @read_char_loop
@@ -151,32 +151,32 @@ _tty_writeln:
 ; INTERNAL
 ; Reads data from enabled input channers
 tty_read_byte:
-        lda tty_config
-        and #(TTY_CONFIG_INPUT_SERIAL)
+        ;lda tty_config
+        ;and #(TTY_CONFIG_INPUT_SERIAL)
         ; Serial input disabled
-        beq @skip_serial
+        ;beq @skip_serial
         jsr _acia_is_data_available
         ; skip, no data available at this point
         cmp #(ACIA_NO_DATA_AVAILABLE)
-        beq @skip_serial
+        beq tty_read_byte
         ; read and send back
         jsr _acia_read_byte
         rts
-@skip_serial:
-        lda tty_config
-        and #(TTY_CONFIG_INPUT_KEYBOARD)
+;@skip_serial:
+        ;lda tty_config
+        ;and #(TTY_CONFIG_INPUT_KEYBOARD)
         ; keyboard input disabled
-        beq @skip_keyboard
-        jsr _keyboard_is_data_available
-        cmp #(KEYBOARD_NO_DATA_AVAILABLE)
+        ;beq @skip_keyboard
+        ;jsr _keyboard_is_data_available
+        ;cmp #(KEYBOARD_NO_DATA_AVAILABLE)
         ; no data available, skip
-        beq @skip_keyboard
+        ;beq @skip_keyboard
         ; read and send back
-        jsr _keyboard_read_char
-        rts
-@skip_keyboard:
+        ;jsr _keyboard_read_char
+        ;rts
+;@skip_keyboard:
         ; nothing found yet, keep polling
-        bra tty_read_byte
+        ;bra tty_read_byte
 
 ; INTERNAL
 ; Assumes input in A, sends to proper channels
@@ -198,7 +198,7 @@ tty_write_byte:
         and #(TTY_CONFIG_OUTPUT_LCD)
         beq @skip_lcd
         ; get char code back from storage
-        txa 
+        txa
         jsr _lcd_print_char
 @skip_lcd:
         ; either way, restore character
@@ -236,7 +236,7 @@ _tty_write_dec:
         phx
         jsr convert_to_hex
         txa
-        plx 
+        plx
         sta hex_to_dec_print_buffer,x
         inx
         tya
@@ -247,7 +247,7 @@ _tty_write_dec:
         bpl @byte_loop
         ldx #$ff
 @skip_leading_zeros_loop:
-        inx 
+        inx
         cpx #$05
         beq @print_rest
         lda hex_to_dec_print_buffer,x

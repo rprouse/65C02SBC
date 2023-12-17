@@ -6,19 +6,16 @@
 ;*           = $7000
 
             .setcpu "65C02"
-            .include "core.inc"
-
-            .import __ACIA_START__
 
             .segment "VECTORS"
 
             .word   $0000
             .word   RESET
-            .word   _interrupt_handler
+            .word   $0000
 
             .code
 
-ACIA        = __ACIA_START__
+ACIA        = $8400
 ACIA_CTRL   = ACIA+3
 ACIA_CMD    = ACIA+2
 ACIA_SR     = ACIA+1
