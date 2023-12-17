@@ -11,34 +11,10 @@ LOADABLE_PROJECTS_FOLDER=load
 
 ADDRESS_MODE=ext
 
-FIRMWARE_PROJECTS = 01_nop_fill          \
-                    02_nop_fffc          \
-                    03_first_code        \
-                    04_blink_s           \
-                    05_knight_rider      \
-                    06_lcd_test          \
-                    07_mem_test          \
-                    08_stack_test        \
-                    09_serial_test       \
-                    10_blink_c           \
-                    11_int_test          \
-                    12_handshake_test    \
-                    13_4bit_lcd          \
-                    14_irq_test          \
-                    15_serial_irq        \
-                    16_delay_test        \
-                    17_blink_test        \
-                    18_core_program      \
-                    19_keyboard_test     \
-                    20_convert_test      \
-                    21_serial_load_test  \
-                    22_modem_test        \
-                    23_blink_test        \
-										24_serial_wdc        \
-										25_serial_wdc_irq    \
-                    minimal_bootloader   \
+FIRMWARE_PROJECTS = minimal_bootloader   \
                     os1                  \
-										microsoft_basic
+										microsoft_basic			 \
+										ewoz
 
 LOADABLE_PROJECTS = 01_blink_test        \
                     02_hello_world       \
@@ -80,8 +56,10 @@ $(LOAD_FOLDER)/%.bin:
 
 all: $(FIRMWARE_BINARIES) $(LOADABLE_BINARIES)
 
+roms: $(FIRMWARE_BINARIES)
+
 test: $(FIRMWARE_BINARIES) $(LOADABLE_BINARIES)
-	@$(MD5_BINARY) $^ 
+	@$(MD5_BINARY) $^
 
 clean:
 	$(RM_BINARY) $(RM_FLAGS) $(BUILD_FOLDER)
