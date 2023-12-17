@@ -6,8 +6,8 @@ AR65_BINARY=ar65
 
 CPU_FLAG=--cpu 65C02
 ARCH_FLAG=-t none
-CLOCK_FLAG=-Dclock_mode_flag=$(CLOCK_MODE_FLAG)
-ACIA_FLAG=-Dacia_tx_irq=$(ACIA_TX_IRQ)
+CLOCK_FLAG=-Dclock_mode_flag=$(CLOCK_MODE_FLAG) 
+ACIA_FLAG=-Dacia_tx_irq=$(ACIA_TX_IRQ) 
 BUILD_FLAG=-Ddb6502
 
 CC65_FLAGS=$(CPU_FLAG) $(ARCH_FLAG) $(CLOCK_FLAG) $(ACIA_FLAG) -O
@@ -23,6 +23,12 @@ EEPROM_MODEL=AT28C256
 HEXDUMP_BINARY=hexdump
 HEXDUMP_FLAGS=-C
 
+# Emulator binary
+X6502_BINARY=x6502
+
+# Checksum generator
+MD5_BINARY=md5sum
+
 # Standard utilities (rm/mkdir)
 RM_BINARY=rm
 MKDIR_BINARY=mkdir
@@ -30,8 +36,16 @@ MKDIR_FLAGS=-p
 CP_BINARY=cp
 CP_FLAGS=-f
 
+# Picocom settings
+PICOCOM_BINARY=picocom
+PICOCOM_FLAGS=-b 19200 -fh --send-cmd 'sz -X'
+
+# Python binary
+PYTHON_BINARY=python
+PYTHON_PROGRAM=../../common/loadtrim.py
+
 # Build folder
-BUILD_ROOT=../../bin
+BUILD_ROOT=../../build
 BUILD_FOLDER=$(BUILD_ROOT)/$(BUILD_TYPE)/$(PROJECT_NAME)
 ROM_FOLDER=$(BUILD_ROOT)/$(BUILD_TYPE)
 COMMON_BUILD_FOLDER=$(BUILD_ROOT)/common
@@ -53,14 +67,13 @@ endif
 # Possible values below
 # WDC65C51 - use 0
 # R6551 - use 1 or 0 (both are supported, but 1 is "better")
-ACIA_TX_IRQ=1
+ACIA_TX_IRQ=0
 
-# Default address mode (`basic` for Ben Eater's design or `ext` for DB's design)
+# Default address mode (basic/ext/.. )
 ADDRESS_MODE=ext
 
 # Default clock mode (supported are: slow, 250k, 1m, 2m, 4m, 8m)
 CLOCK_MODE=1m
-#CLOCK_MODE=slow
 
 # Clock mode translation (for CA65 preprocessor) - see common/include/clock.inc
 ifeq ($(CLOCK_MODE), slow)
@@ -132,11 +145,20 @@ COMMON_C_LIBRARY=$(COMMON_LIB_FOLDER)/common.c.lib
 # Object files to be generated
 OBJECTS = $(ASM_SOURCES:%.s=$(BUILD_FOLDER)/%.o) $(C_SOURCES:%.c=$(BUILD_FOLDER)/%.o)
 
+ifeq ($(BUILD_TYPE),load)
+# Choose configuration file for firmware (determines addressing mode)
+FIRMWARE_CFG=../../common/load.cfg
+# Resulting binary file (ROM to be uploaded)
+FIRMWARE_RAW=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).load.raw
+FIRMWARE_BINARY=$(ROM_FOLDER)/$(PROJECT_NAME).load.bin
+FIRMWARE_MAP=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).load.map
+else
 # Choose configuration file for firmware (determines addressing mode)
 FIRMWARE_CFG=../../common/firmware.$(ADDRESS_MODE).cfg
 # Resulting binary file (ROM to be uploaded)
 FIRMWARE_BINARY=$(ROM_FOLDER)/$(PROJECT_NAME).$(ADDRESS_MODE).bin
 FIRMWARE_MAP=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).$(ADDRESS_MODE).map
+endif
 
 # Loadable module linking library - depending on link mode
 ifeq ($(LOAD_LINK),dynamic)
@@ -189,9 +211,18 @@ $(COMMON_C_LIBRARY): $(COMMON_C_LIB_OBJECTS)
 all: $(FIRMWARE_BINARY)
 
 # Linking process
+ifeq ($(BUILD_TYPE),load)
+$(FIRMWARE_RAW): $(SYSTEM_MEMORY_MAP_OBJECT) $(OBJECTS) $(LOAD_LINK_LIBRARY) $(COMMON_C_LIBRARY)
+	@$(MKDIR_BINARY) $(MKDIR_FLAGS) $(ROM_FOLDER)
+	$(LD65_BINARY) $(LD65_FLAGS) -C $(FIRMWARE_CFG) -m $(FIRMWARE_MAP) -o $(FIRMWARE_RAW) $^
+
+$(FIRMWARE_BINARY): $(FIRMWARE_RAW)
+	$(PYTHON_BINARY) $(PYTHON_PROGRAM) $^ $@
+else
 $(FIRMWARE_BINARY): $(SYSTEM_MEMORY_MAP_OBJECT) $(OBJECTS) $(COMMON_LIBRARY) $(COMMON_C_LIBRARY)
 	@$(MKDIR_BINARY) $(MKDIR_FLAGS) $(ROM_FOLDER)
 	$(LD65_BINARY) $(LD65_FLAGS) -C $(FIRMWARE_CFG) -m $(FIRMWARE_MAP) -o $@ $^
+endif
 
 # Display ROM contents
 ifeq ($(BUILD_TYPE),load)
@@ -200,10 +231,18 @@ else
 test: $(FIRMWARE_BINARY)
 endif
 	$(HEXDUMP_BINARY) $(HEXDUMP_FLAGS) $<
+	@$(MD5_BINARY) $<
 
 # Burn ROM to EEPROM
 install: $(FIRMWARE_BINARY)
-	$(MINIPRO_BINARY) -p $(EEPROM_MODEL) -w $<
+	$(MINIPRO_BINARY) -p $(EEPROM_MODEL) -w $<	
+
+# Emulate code
+emu: $(FIRMWARE_BINARY)
+	$(X6502_BINARY) $<
+
+terminal:
+	$(PICOCOM_BINARY) $(PICOCOM_FLAGS) /dev/tty.usbserial-DN4QHYAP
 
 # Clean generated files
 clean:

@@ -62,9 +62,9 @@ _get_address:
         parse_hex_word start_address_pointer
         bcc @error
 
-        ; LSB
+        ; LSB 
         stx start_address
-        ; MSB
+        ; MSB 
         sta start_address+1
         ; add 15 bytes
         clc
@@ -97,9 +97,9 @@ _get_range:
 
         parse_hex_word start_address_pointer
         bcc @error
-        ; LSB
+        ; LSB 
         stx start_address
-        ; MSB
+        ; MSB 
         sta start_address+1
 
         ; get end address
@@ -108,9 +108,9 @@ _get_range:
 
         parse_hex_word end_address_pointer
         bcc @error
-        ; LSB
+        ; LSB 
         stx end_address
-        ; MSB
+        ; MSB 
         sta end_address+1
         cmp_ptr end_address, start_address
         bcc @error
@@ -263,9 +263,9 @@ _put_value:
         bcs @good_address
         jmp @error
 @good_address:
-        ; LSB
+        ; LSB 
         stx start_address
-        ; MSB
+        ; MSB 
         sta start_address+1
 
         ; get value
@@ -319,9 +319,9 @@ _put_value:
 _get_stack:
         lda #$ff
         sta stack_flag
-        lda #$00
+        lda #$00 
         sta start_address
-        lda #$01
+        lda #$01 
         sta start_address+1
         lda #$ff
         sta end_address
@@ -337,9 +337,9 @@ _get_stack:
 
 _get_zero:
         stz stack_flag
-        lda #$00
+        lda #$00 
         sta start_address
-        lda #$00
+        lda #$00 
         sta start_address+1
         lda #$ff
         sta end_address
@@ -356,9 +356,9 @@ _disasm_address:
         parse_hex_word start_address_pointer
         bcc @error
 
-        ; LSB
+        ; LSB 
         stx start_address
-        ; MSB
+        ; MSB 
         sta start_address+1
 
         stz instruction_counter
@@ -569,7 +569,7 @@ format_relative:
         jsr convert_to_hex
         txa
         sta operand_buffer
-        tya
+        tya 
         sta operand_buffer+1
 
         lda #('$')
@@ -582,7 +582,7 @@ format_relative:
         cpx #$05
         bne @copy_loop
         stz operand_print_buffer,x
-
+        
         rts
 format_zeropage:
         format_byte_operand #str_format_zeropage, 1
@@ -633,7 +633,7 @@ fetch_word_operand:
         jsr convert_to_hex
         txa
         sta operand_buffer
-        tya
+        tya 
         sta operand_buffer+1
         rts
 
@@ -690,9 +690,9 @@ stack_ptr:
         .res 1
 
         .segment "RODATA"
-msghello1:
+msghello1: 
         .asciiz "Welcome to OS/1 monitor application"
-msghello2:
+msghello2: 
         .asciiz "Enter HELP to see available commands"
 msgget:
         .asciiz "Displaying contents of memory area "
@@ -719,7 +719,7 @@ menu:
         menuitem stack_cmd,  1, stack_desc,  _get_stack
         menuitem zero_cmd,   1, zero_desc,   _get_zero
         menuitem disasm_cmd, 2, disasm_desc, _disasm_address
-        endmenu
+        endmenu 
 
 get_cmd:
         .asciiz "GET"
@@ -740,9 +740,9 @@ zero_cmd:
 zero_desc:
         .asciiz "ZERO - display zeropage contents"
 disasm_cmd:
-        .asciiz "DASM"
+        .asciiz "DISASM"
 disasm_desc:
-        .asciiz "DASM xxxx - disassemble code starting at address xxxx"
+        .asciiz "DISASM xxxx - disassemble code starting at address xxxx"
 
 str_space:
         .asciiz "  "
