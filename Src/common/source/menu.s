@@ -266,14 +266,9 @@ special_commands:
         cmp #$00
         bne not_help
         lda tokens_count
-        cmp #$03
-        bpl invalid_command
         cmp #$02
-        beq filtered_help
+        bpl invalid_command
         jsr display_help_message
-        jmp main_loop
-filtered_help:
-        jsr display_filtered_help
         jmp main_loop
 not_help:
         lda tokens_count
@@ -299,7 +294,6 @@ execute_menu_function:
 display_help_message:
         writeln_tty #helpmsg1
         writeln_tty #helpmsg2
-        writeln_tty #helpmsg3
         copy_ptr menu_root, menu_item
 help_loop:
         is_last_menu_item menu_item
@@ -317,17 +311,6 @@ help_loop:
         writeln_tty #helpmsg4
         rts
 
-display_filtered_help:
-        strgettoken #tokenize_buffer, 1
-        copy_ptr ptr1, help_filter_pointer
-        strtoupper help_filter_pointer
-        ; Check default candidates
-        strcompare #cmd_help, help_filter_pointer
-        cmp #$00
-        bne @not_help
-        writeln_tty #helpmsg2
-        writeln_tty #helpmsg3
-        rts
 @not_help:
         strcompare #cmd_exit, help_filter_pointer
         cmp #$00
@@ -401,8 +384,6 @@ helpmsg1:
         .asciiz "Available commands:"
 helpmsg2:
         .asciiz "  ? - display help"
-helpmsg3:
-        .asciiz "  ? <command> - help for <command>"
 helpmsg4:
         .asciiz "  EXIT - exit the menu"
 helpind:
