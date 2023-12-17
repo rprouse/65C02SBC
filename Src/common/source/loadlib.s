@@ -5,7 +5,6 @@
         .export _blink_init
         .export _lcd_init
         .export _acia_init
-        ;.export _keyboard_init
 ; Core routines
         .export _register_user_break
         .export _deregister_user_break
@@ -31,10 +30,6 @@
         .export _acia_read_byte
         .export _acia_write_byte
         .export _acia_write_string
-; Keyboard routines
-        ;.export _keyboard_is_connected
-        ;.export _keyboard_is_data_available
-        ;.export _keyboard_read_char
 ; LCD routines
         .export _lcd_print
         .export _lcd_print_char
@@ -105,9 +100,6 @@ _lcd_init:
 _acia_init:
         jmp (_syscall__acia_init)
 
-;_keyboard_init:
-        ;jmp (_syscall__keyboard_init)
-
 ; Core routines
 _register_user_break:
         jmp (_syscall__register_user_break)
@@ -172,16 +164,6 @@ _acia_write_byte:
 
 _acia_write_string:
         jmp (_syscall__acia_write_string)
-
-; Keyboard routines
-;_keyboard_is_connected:
-        ;jmp (_syscall__keyboard_is_connected)
-
-;_keyboard_is_data_available:
-        ;jmp (_syscall__keyboard_is_data_available)
-
-;_keyboard_read_char:
-        ;jmp (_syscall__keyboard_read_char)
 
 ; LCD routines
 _lcd_print:

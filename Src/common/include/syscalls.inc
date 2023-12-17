@@ -3,7 +3,6 @@
         .forceimport _syscall__blink_init
         .forceimport _syscall__lcd_init
         .forceimport _syscall__acia_init
-        ;.forceimport _syscall__keyboard_init
 ; Core routines
         .forceimport _syscall__register_user_break
         .forceimport _syscall__deregister_user_break
@@ -29,10 +28,6 @@
         .forceimport _syscall__acia_read_byte
         .forceimport _syscall__acia_write_byte
         .forceimport _syscall__acia_write_string
-; Keyboard routines
-        ;.forceimport _syscall__keyboard_is_connected
-        ;.forceimport _syscall__keyboard_is_data_available
-        ;.forceimport _syscall__keyboard_read_char
 ; LCD routines
         .forceimport _syscall__lcd_print
         .forceimport _syscall__lcd_print_char

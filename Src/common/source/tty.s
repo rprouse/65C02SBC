@@ -2,7 +2,6 @@
         .include "string.inc"
         .include "acia.inc"
         .include "lcd.inc"
-        ;.include "keyboard.inc"
         .include "utils.inc"
         .include "macros.inc"
 
@@ -17,7 +16,6 @@
         .export _tty_send_character
 
 TTY_CONFIG_INPUT_SERIAL   = %00000001
-;TTY_CONFIG_INPUT_KEYBOARD = %00000010
 TTY_CONFIG_OUTPUT_SERIAL  = %00000100
 TTY_CONFIG_OUTPUT_LCD     = %00001000
 
@@ -162,21 +160,6 @@ tty_read_byte:
         ; read and send back
         jsr _acia_read_byte
         rts
-;@skip_serial:
-        ;lda tty_config
-        ;and #(TTY_CONFIG_INPUT_KEYBOARD)
-        ; keyboard input disabled
-        ;beq @skip_keyboard
-        ;jsr _keyboard_is_data_available
-        ;cmp #(KEYBOARD_NO_DATA_AVAILABLE)
-        ; no data available, skip
-        ;beq @skip_keyboard
-        ; read and send back
-        ;jsr _keyboard_read_char
-        ;rts
-;@skip_keyboard:
-        ; nothing found yet, keep polling
-        ;bra tty_read_byte
 
 ; INTERNAL
 ; Assumes input in A, sends to proper channels

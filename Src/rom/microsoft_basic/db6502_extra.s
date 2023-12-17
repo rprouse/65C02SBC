@@ -2,7 +2,6 @@
       .include "lcd.inc"
       .include "core.inc"
       .include "acia.inc"
-      ;.include "keyboard.inc"
       .include "syscalls.inc"
 
 .segment "CODE"
