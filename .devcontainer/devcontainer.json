@@ -1,20 +1,9 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
 {
 	"name": "65C02-Assembly",
 	"image": "rprouse/asm-dev",
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": {},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	// Note that some extensions may not work in Alpine Linux. See https://aka.ms/vscode-remote/linux.
-	"extensions": [
-		"tlgkccampbell.code-ca65",
-		"ms-vscode.cpptools",
-		"austin.code-gnu-global",
-		"ms-vscode.hexeditor",
-		"shardulm94.trailing-spaces"
-	 ],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -22,9 +11,33 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
 
-	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
-	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+	// Configure tool-specific properties.
+	"customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "tlgkccampbell.code-ca65",
+        "ms-vscode.makefile-tools",
+        "ms-vscode.hexeditor",
+        "shardulm94.trailing-spaces"
+      ]
+    }
+  },
 
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  // Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true,
+      "username": "rob",
+      "userUid": 1001,
+      "userGid": 1001
+    }
+	},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "rob"
 }
