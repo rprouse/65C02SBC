@@ -31,7 +31,7 @@ NEXT_OFFSET     = $07
         bra @return
 @not_last:
         clc
-@return:        
+@return:
         pla
         sta ptr1+1
         pla
@@ -80,7 +80,7 @@ NEXT_OFFSET     = $07
         ldy #(CMD_OFFSET)
         lda (ptr1),y
         sta cmd_pointer
-        iny 
+        iny
         lda (ptr1),y
         sta cmd_pointer+1
         ldy #(ARGC_OFFSET)
@@ -116,7 +116,7 @@ TOKENIZE_BUFFER_SIZE = 64
         .code
 
 ; C function to populate data structure
-; 
+;
 _setup_menuitem:
         ; read params from registers and stack
         sta menu_item_function
@@ -285,7 +285,7 @@ not_help:
         writeln_tty #byemsg
         rts
 invalid_command:
-        writeln_tty #errormsg1
+        writeln_tty #notfoundcmd
         writeln_tty #errormsg2
         jmp main_loop
 
@@ -390,24 +390,22 @@ menu_item_function:
 
         .segment "RODATA"
 cmd_help:
-        .asciiz "HELP"
+        .asciiz "?"
 cmd_exit:
         .asciiz "EXIT"
-errormsg1:
-        .asciiz "Command not recognized - either wrong keyword or incorrect number of parameters"
 errormsg2:
-        .asciiz "Enter HELP command to list available commands"
+        .asciiz "Enter ? to list commands"
 byemsg:
         .asciiz "Exiting..."
 helpmsg1:
-        .asciiz "The following commands are available:"
+        .asciiz "Available commands:"
 helpmsg2:
-        .asciiz "  HELP - display this information"
+        .asciiz "  ? - display help"
 helpmsg3:
-        .asciiz "  HELP <command> - display help for <command>"
+        .asciiz "  ? <command> - help for <command>"
 helpmsg4:
         .asciiz "  EXIT - exit the menu"
 helpind:
         .asciiz "  "
 notfoundcmd:
-        .asciiz "Command not recognized, no help available"
+        .asciiz "Command not recognized"

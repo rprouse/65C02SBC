@@ -691,21 +691,21 @@ stack_ptr:
 
         .segment "RODATA"
 msghello1:
-        .asciiz "Spark/1 monitor application"
+        .asciiz "Spark/1 Monitor"
 msghello2:
-        .asciiz "Enter HELP to see available commands"
+        .asciiz "? to see commands"
 msgget:
-        .asciiz "Displaying contents of memory area "
+        .asciiz "Memory area "
 msgput:
-        .asciiz "Storing value "
+        .asciiz "Setting value "
 msgput_at_address:
         .asciiz " at address "
 msgdisasm:
-        .asciiz "Displaying code starting at "
+        .asciiz "Code starting at "
 parseerr:
-        .asciiz "Unable to parse given address"
+        .asciiz "Unable to parse address"
 prompt:
-        .asciiz "Monitor>"
+        .asciiz "/"
 colon:
         .asciiz ":"
 assign:
@@ -722,27 +722,27 @@ menu:
         endmenu
 
 get_cmd:
-        .asciiz "GET"
+        .asciiz "M"
 get_2_desc:
-        .asciiz "GET xxxx - get data at the address xxxx"
+        .asciiz "M xxxx - view memory at addr xxxx"
 get_4_desc:
-        .asciiz "GET xxxx:yyyy - get data between addresses xxxx and yyyy"
+        .asciiz "M xxxx:yyyy - view memory between addr xxxx and yyyy"
 put_cmd:
-        .asciiz "PUT"
+        .asciiz "S"
 put_desc:
-        .asciiz "PUT xxxx=yy - put value yy at address xxxx"
+        .asciiz "S xxxx=yy - set value yy at address xxxx"
 stack_cmd:
-        .asciiz "STACK"
+        .asciiz "ST"
 stack_desc:
-        .asciiz "STACK - display current stack contents and pointer value"
+        .asciiz "ST - display stack and pointer value"
 zero_cmd:
-        .asciiz "ZERO"
+        .asciiz "Z"
 zero_desc:
-        .asciiz "ZERO - display zeropage contents"
+        .asciiz "Z - display zeropage"
 disasm_cmd:
-        .asciiz "DISASM"
+        .asciiz "D"
 disasm_desc:
-        .asciiz "DISASM xxxx - disassemble code starting at address xxxx"
+        .asciiz "D xxxx - disassemble code at address xxxx"
 
 str_space:
         .asciiz "  "
@@ -779,4 +779,4 @@ str_format_indirect_x:
         .asciiz "($xxxx,X)"
 
 str_stack_pointer:
-        .asciiz "Current SP value: 0x"
+        .asciiz "SP value: 0x"

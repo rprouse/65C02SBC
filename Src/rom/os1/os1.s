@@ -6,7 +6,7 @@
       .include "syscalls.inc"
 
       .import _run_shell
-      .export os1_version
+      .export os_version
 
       .segment "VECTORS"
 
@@ -30,13 +30,13 @@ init:
       ; Run setup routine
       jsr _system_init
       ; Display hello message
-      write_lcd #os1_version
+      write_lcd #os_version
       ; Display Instructions
       ldx #$00
       ldy #$01
       jsr lcd_set_position
-      lda #01
-      jsr _delay_sec
+      lda #250
+      jsr _delay_ms
       write_lcd #instruction
 @wait_for_acia_input:
       jsr _acia_is_data_available
@@ -46,6 +46,12 @@ init:
       bra @run_shell
 @run_shell:
       jsr _lcd_clear
+      write_lcd #eightbitlabs
+      ldx #$00
+      ldy #$01
+      jsr lcd_set_position
+      lda #250
+      jsr _delay_ms
       write_lcd #shell_connected
       jsr _run_shell
       ; Disable interrupt processing during init
@@ -54,9 +60,11 @@ init:
 
       .segment "RODATA"
 
-os1_version:
-      .asciiz "OS/1 version 0.4"
+os_version:
+      .asciiz "Spark/1 v0.5"
 instruction:
-      .asciiz "19200 N8S1 CTS/RTS"
+      .asciiz "Awaiting serial"
+eightbitlabs:
+      .asciiz "8bitlabs.ca"
 shell_connected:
       .asciiz "Shell connected"

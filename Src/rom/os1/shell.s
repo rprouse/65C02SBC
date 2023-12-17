@@ -12,7 +12,7 @@
         .include "macros.inc"
 
         .export _run_shell
-        .import os1_version
+        .import os_version
         .import _run_monitor
         .import __ROM_START__
         .import __ROM_LAST__
@@ -46,11 +46,10 @@ _run_shell:
         writeln_tty #banner4
         writeln_tty #banner5
         writeln_tty #banner6
-        writeln_tty #banner7
         writeln_tty #msgemptyline
 
         ; Display hello messages
-        writeln_tty #os1_version
+        writeln_tty #os_version
         writeln_tty #msghello2
         writeln_tty #msghello3
 
@@ -180,24 +179,16 @@ param_pointer:
         .res 2
 
         .segment "RODATA"
-banner1:
-        .asciiz " ######  ########     ###    ########  ##    ##    ##"
-banner2:
-        .asciiz "##    ## ##     ##   ## ##   ##     ## ##   ##   ####"
-banner3:
-        .asciiz "##       ##     ##  ##   ##  ##     ## ##  ##      ##"
-banner4:
-        .asciiz " ######  ########  ##     ## ########  #####       ##"
-banner5:
-        .asciiz "      ## ##        ######### ##   ##   ##  ##      ##"
-banner6:
-        .asciiz "##    ## ##        ##     ## ##    ##  ##   ##     ##"
-banner7:
-        .asciiz " ######  ##        ##     ## ##     ## ##    ##  ######"
+banner1:.asciiz "  ___  ____  _ _   _           _"
+banner2:.asciiz " / _ \|  _ \(_) | | |         | |"
+banner3:.asciiz "| (_) | |_) |_| |_| |     __ _| |__  ___   ___ __ _"
+banner4:.asciiz " > _ <|  _ <| | __| |    / _` | '_ \/ __| / __/ _` |"
+banner5:.asciiz "| (_) | |_) | | |_| |___| (_| | |_) \__ \| (_| (_| |"
+banner6:.asciiz " \___/|____/|_|\__|______\__,_|_.__/|___(_)___\__,_|"
 msghello2:
-        .asciiz "Spark/1 for 65C02 computer"
+        .asciiz "65C02 Spark/1 (c) 2023"
 msghello3:
-        .asciiz "HELP to get list of commands"
+        .asciiz "? to list commands"
 msgload:
         .asciiz "Initiating load..."
 msgrun:
@@ -205,9 +196,9 @@ msgrun:
 msgmonitor:
         .asciiz "Running monitor..."
 msginfo:
-        .asciiz "Spark/1 System Information"
+        .asciiz "Spark/1 Sys Info"
 clock_msg1:
-        .asciiz "System clock running at "
+        .asciiz "System clock "
 clock_msg2:
         .asciiz "MHz"
 rom_msg:
@@ -217,7 +208,7 @@ system_ram_msg:
 user_ram_msg:
         .asciiz "User RAM"
 mem_msg1:
-        .asciiz " at address: 0x"
+        .asciiz " at addr: 0x"
 mem_msg2:
         .asciiz ", used: "
 out_of_msg:
@@ -231,39 +222,39 @@ rom_data_msg:
 syscalls_msg:
         .asciiz "SYSCALLS table uses "
 via1_addr_msg:
-        .asciiz "VIA1 address: 0x"
+        .asciiz "VIA1 addr: 0x"
 via2_addr_msg:
-        .asciiz "VIA2 address: 0x"
+        .asciiz "VIA2 addr: 0x"
 acia_addr_msg:
-        .asciiz "ACIA address: 0x"
+        .asciiz "ACIA addr: 0x"
 os1prompt:
-        .asciiz "Spark/1>"
+        .asciiz ">"
 msgemptyline:
         .byte $00
 lederror:
-        .asciiz "Incorrect parameters passed"
+        .asciiz "Invalid params"
 msgsystembreak:
         .asciiz "System break initiated, returning to shell..."
 menu:
         menuitem load_cmd,    1, load_desc,    _process_load
         menuitem run_cmd,     1, run_desc,     _process_run
         menuitem monitor_cmd, 1, monitor_desc, _process_monitor
-        menuitem led_cmd,   2, led_desc,   _process_led
+        menuitem led_cmd,     2, led_desc,     _process_led
         menuitem info_cmd,    1, info_desc,    _process_info
         endmenu
 
 load_cmd:
         .asciiz "LOAD"
 load_desc:
-        .asciiz "LOAD - load application using XMODEM/CRC protocol"
+        .asciiz "LOAD - load app using XMODEM"
 run_cmd:
         .asciiz "RUN"
 run_desc:
-        .asciiz "RUN - execute loaded application"
+        .asciiz "RUN - run loaded app"
 monitor_cmd:
-        .asciiz "MONITOR"
+        .asciiz "MON"
 monitor_desc:
-        .asciiz "MONITOR - run embedded monitor"
+        .asciiz "MON - run monitor"
 led_cmd:
         .asciiz "LED"
 led_desc:
@@ -271,4 +262,4 @@ led_desc:
 info_cmd:
         .asciiz "INFO"
 info_desc:
-        .asciiz "INFO - display system information"
+        .asciiz "INFO - display sys info"

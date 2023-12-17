@@ -4,7 +4,7 @@
         .export _modem_send
         .export _modem_receive
 
-; Original implementation by Daryl Rictor 
+; Original implementation by Daryl Rictor
 ; Slightly modified for this build (IRQ-based ACIA)
 
 ; Constants used
@@ -114,7 +114,7 @@ _modem_receive:
 @correct_block_number:
         ; Calculate second block indicator
         eor #$ff
-        inx 
+        inx
         cmp recv_buffer,x
         bne @incorrect_block_number
         ; Calculate block CRC
@@ -307,20 +307,20 @@ _modem_receive:
         rts
 
         .segment "BSS"
-recv_buffer: 
+recv_buffer:
         .res RECEIVE_BUFFER_SIZE
 
         .segment "RODATA"
 prompt:
-        .byte "Begin XMODEM/CRC transfer.  Press <Esc> to abort...", CR, LF, $00
+        .byte "Begin XMODEM transfer.  <Esc> to abort...", CR, LF, $00
 
-error_message:     
+error_message:
         .byte "Transfer Error!", CR, LF, $00
 
 abort_message:
         .byte "Transfer Aborted!", CR, LF, $00
 
-success_message:    
+success_message:
         .byte EOT, CR, LF
         .byte "Transfer Successful!", CR, LF, $00
 
