@@ -11,7 +11,7 @@ LOADABLE_PROJECTS_FOLDER=load
 
 ADDRESS_MODE=ext
 
-FIRMWARE_PROJECTS = os1                  \
+FIRMWARE_PROJECTS = os                   \
 										microsoft_basic			 \
 										ewoz
 
@@ -19,28 +19,15 @@ LOADABLE_PROJECTS = 01_blink_test        \
                     02_hello_world       \
                     03_string_test       \
                     04_blink_large       \
-                    05_simple_shell      \
-                    06_memdump           \
-										08_system_break_test \
-										09_monitor           \
-										10_menu              \
-										11_disasm            \
 										12_custom_chars      \
 										13_custom_chars_c    \
 										14_offset_math       \
-										15_menu_in_c         \
 										16_microchess        \
-										17_basic						 \
 										18_hello_world       \
 										19_hello_world_c     \
 										20_lcd_bug           \
-										21_sysinfo           \
-										22_msbasic           \
-										23_t1_test           \
 										24_user_irq_test     \
-										25_user_irq_c        \
-										26_duart_sync        \
-                    27_duart_async
+										25_user_irq_c
 
 FIRMWARE_BINARIES=$(FIRMWARE_PROJECTS:%=$(ROM_FOLDER)/%.$(ADDRESS_MODE).bin)
 

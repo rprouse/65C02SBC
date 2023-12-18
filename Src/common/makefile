@@ -65,9 +65,6 @@ endif
 # R6551 - use 1 or 0 (both are supported, but 1 is "better")
 ACIA_TX_IRQ=0
 
-# Default address mode (basic/ext/.. )
-ADDRESS_MODE=ext
-
 # Default clock mode (supported are: slow, 250k, 1m, 2m, 4m, 8m)
 CLOCK_MODE=1m
 
@@ -151,10 +148,10 @@ FIRMWARE_BINARY=$(ROM_FOLDER)/$(PROJECT_NAME).load.bin
 FIRMWARE_MAP=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).load.map
 else
 # Choose configuration file for firmware (determines addressing mode)
-FIRMWARE_CFG=../../common/firmware.$(ADDRESS_MODE).cfg
+FIRMWARE_CFG=../../common/firmware.cfg
 # Resulting binary file (ROM to be uploaded)
-FIRMWARE_BINARY=$(ROM_FOLDER)/$(PROJECT_NAME).$(ADDRESS_MODE).bin
-FIRMWARE_MAP=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).$(ADDRESS_MODE).map
+FIRMWARE_BINARY=$(ROM_FOLDER)/$(PROJECT_NAME).bin
+FIRMWARE_MAP=$(ROM_FOLDER)/$(PROJECT_NAME)/$(PROJECT_NAME).map
 endif
 
 # Loadable module linking library - depending on link mode
