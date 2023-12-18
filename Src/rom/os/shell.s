@@ -104,7 +104,7 @@ _process_monitor:
 
 _process_basic:
         writeln_tty #msgbasic
-        jsr init_basic          ; Should this just be a jump?
+        jmp init_basic
         rts
 
 _process_info:
@@ -192,9 +192,9 @@ banner4:.asciiz " > _ <|  _ <| | __| |    / _` | '_ \/ __| / __/ _` |"
 banner5:.asciiz "| (_) | |_) | | |_| |___| (_| | |_) \__ \| (_| (_| |"
 banner6:.asciiz " \___/|____/|_|\__|______\__,_|_.__/|___(_)___\__,_|"
 msghello2:
-        .asciiz "65C02 Spark/1 (c) 2023"
+        .asciiz "Spark64 OS for 65C02 (c) 2023 Rob Prouse"
 msghello3:
-        .asciiz "? to list commands"
+        .asciiz "HELP to list commands"
 msgload:
         .asciiz "Initiating load..."
 msgrun:
@@ -204,7 +204,7 @@ msgmonitor:
 msgbasic:
         .asciiz "Running MS BASIC..."
 msginfo:
-        .asciiz "Spark/1 Sys Info"
+        .asciiz "Spark64 System Info"
 clock_msg1:
         .asciiz "System clock "
 clock_msg2:
@@ -236,7 +236,7 @@ via2_addr_msg:
 acia_addr_msg:
         .asciiz "ACIA addr: 0x"
 os1prompt:
-        .asciiz ">"
+        .asciiz "Spark64>"
 msgemptyline:
         .byte $00
 lederror:
@@ -255,24 +255,24 @@ menu:
 load_cmd:
         .asciiz "LOAD"
 load_desc:
-        .asciiz "LOAD - load app using XMODEM"
+        .asciiz "LOAD         - load app using XMODEM"
 run_cmd:
         .asciiz "RUN"
 run_desc:
-        .asciiz "RUN - run loaded app"
+        .asciiz "RUN          - run loaded app"
 basic_cmd:
         .asciiz "BASIC"
 basic_desc:
-        .asciiz "BASIC - run MS BASIC"
+        .asciiz "BASIC        - run MS BASIC"
 monitor_cmd:
         .asciiz "MON"
 monitor_desc:
-        .asciiz "MON - run monitor"
+        .asciiz "MON          - run monitor program"
 led_cmd:
         .asciiz "LED"
 led_desc:
-        .asciiz "LED on/off - toggle onboard LED"
+        .asciiz "LED <on|off> - toggle onboard LED"
 info_cmd:
         .asciiz "INFO"
 info_desc:
-        .asciiz "INFO - display sys info"
+        .asciiz "INFO         - display system info"

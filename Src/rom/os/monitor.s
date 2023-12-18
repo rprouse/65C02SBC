@@ -691,9 +691,9 @@ stack_ptr:
 
         .segment "RODATA"
 msghello1:
-        .asciiz "Spark/1 Monitor"
+        .asciiz "Spark64 Monitor (c) 2023 Rob Prouse"
 msghello2:
-        .asciiz "? to see commands"
+        .asciiz "HELP to see commands"
 msgget:
         .asciiz "Memory area "
 msgput:
@@ -705,7 +705,7 @@ msgdisasm:
 parseerr:
         .asciiz "Unable to parse address"
 prompt:
-        .asciiz "/"
+        .asciiz "Monitor>"
 colon:
         .asciiz ":"
 assign:
@@ -724,25 +724,25 @@ menu:
 get_cmd:
         .asciiz "M"
 get_2_desc:
-        .asciiz "M xxxx - view memory at addr xxxx"
+        .asciiz "M xxxx       - view memory at addr xxxx"
 get_4_desc:
-        .asciiz "M xxxx:yyyy - view memory between addr xxxx and yyyy"
+        .asciiz "M xxxx:yyyy  - view memory between addr xxxx and yyyy"
 put_cmd:
         .asciiz "S"
 put_desc:
-        .asciiz "S xxxx=yy - set value yy at address xxxx"
+        .asciiz "S xxxx=yy    - set value yy at address xxxx"
 stack_cmd:
         .asciiz "ST"
 stack_desc:
-        .asciiz "ST - display stack and pointer value"
+        .asciiz "ST           - display stack and pointer value"
 zero_cmd:
         .asciiz "Z"
 zero_desc:
-        .asciiz "Z - display zeropage"
+        .asciiz "Z            - display zeropage"
 disasm_cmd:
         .asciiz "D"
 disasm_desc:
-        .asciiz "D xxxx - disassemble code at address xxxx"
+        .asciiz "D xxxx       - disassemble code at address xxxx"
 
 str_space:
         .asciiz "  "

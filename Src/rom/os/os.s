@@ -5,7 +5,7 @@
       .include "acia.inc"
       .include "syscalls.inc"
 
-SPARK1 := 1
+SPARK64 := 1
 
       .include "../microsoft_basic/msbasic.s"
 
@@ -66,10 +66,10 @@ init_os:
       .segment "RODATA"
 
 os_version:
-      .asciiz "Spark/1 v0.6"
+      .asciiz "Spark64 v0.6.1"
 instruction:
-      .asciiz "Awaiting serial"
+      .asciiz "Awaiting TTY"
 eightbitlabs:
       .asciiz "8bitlabs.ca"
 shell_connected:
-      .asciiz "Shell connected"
+      .asciiz "TTY connected"

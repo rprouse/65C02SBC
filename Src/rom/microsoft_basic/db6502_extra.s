@@ -159,11 +159,11 @@ SYS:
   jsr     GETADR
   jmp     (LINNUM)
 
-.ifdef SPARK1
+.ifdef SPARK64
 BYE:
   jmp init_os
 
-.else ; SPARK1
+.else ; SPARK64
 .segment "VECTORS"
 
 .word   $0000

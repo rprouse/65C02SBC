@@ -73,7 +73,7 @@
 .endif
 .ifdef DB6502
 		keyword_rts "SYS", SYS
-.ifdef SPARK1
+.ifdef SPARK64
     keyword_rts "BYE", BYE
 .endif
 .endif

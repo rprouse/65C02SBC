@@ -373,19 +373,19 @@ menu_item_function:
 
         .segment "RODATA"
 cmd_help:
-        .asciiz "?"
+        .asciiz "HELP"
 cmd_exit:
         .asciiz "EXIT"
 errormsg2:
-        .asciiz "Enter ? to list commands"
+        .asciiz "Enter HELP to list commands"
 byemsg:
         .asciiz "Exiting..."
 helpmsg1:
         .asciiz "Available commands:"
 helpmsg2:
-        .asciiz "  ? - display help"
+        .asciiz "  HELP         - display help"
 helpmsg4:
-        .asciiz "  EXIT - exit the menu"
+        .asciiz "  EXIT         - exit the menu"
 helpind:
         .asciiz "  "
 notfoundcmd:

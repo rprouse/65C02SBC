@@ -1,4 +1,4 @@
-PROJECT_NAME=spark1
+PROJECT_NAME=spark64
 BUILD_TYPE=rom
 
 ASM_SOURCES=os.s shell.s monitor.s opcodes.s
