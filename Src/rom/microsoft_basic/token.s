@@ -73,6 +73,9 @@
 .endif
 .ifdef DB6502
 		keyword_rts "SYS", SYS
+.ifdef SPARK1
+    keyword_rts "BYE", BYE
+.endif
 .endif
 .ifndef CONFIG_SMALL
 		keyword_rts "GET", GET

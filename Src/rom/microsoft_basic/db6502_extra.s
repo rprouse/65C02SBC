@@ -30,12 +30,12 @@ init_basic:
 
       write_lcd #ms_basic
       ldx #$00
-      ldy #$02
+      ldy #$01
       jsr lcd_set_position
-      write_lcd #ms_copyright
-      ldx #$00
-      ldy #$03
-      jsr lcd_set_position
+      ;write_lcd #ms_copyright
+      ;ldx #$00
+      ;ldy #$03
+      ;jsr lcd_set_position
       write_lcd #my_copyright
 
       lda #(TTY_CONFIG_INPUT_SERIAL | TTY_CONFIG_OUTPUT_SERIAL)
@@ -134,13 +134,13 @@ Backspace:
   .byte $1B,"[D ",$1B,"[D",$00
 
 ms_basic:
-  .asciiz "65C02 SBC BASIC V1.1"
+  .asciiz "65C02 BASIC V1.2"
 
 ms_copyright:
   .asciiz "(c) 1977 Microsoft"
 
 my_copyright:
-  .asciiz "(c) 2021 Rob Prouse"
+  .asciiz "(c) 2023 RProuse"
 
 not_implemented:
   .asciiz "NOT IMPLEMENTED"
@@ -159,7 +159,11 @@ SYS:
   jsr     GETADR
   jmp     (LINNUM)
 
-.ifndef SPARK1
+.ifdef SPARK1
+BYE:
+  jmp init_os
+
+.else ; SPARK1
 .segment "VECTORS"
 
 .word   $0000

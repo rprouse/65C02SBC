@@ -66,7 +66,7 @@ init_os:
       .segment "RODATA"
 
 os_version:
-      .asciiz "Spark/1 v0.5"
+      .asciiz "Spark/1 v0.6"
 instruction:
       .asciiz "Awaiting serial"
 eightbitlabs:
