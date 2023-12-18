@@ -1,3 +1,5 @@
+.ifndef __UTILS_INC__
+__UTILS_INC__ := 1
         .import _delay_ms
         .import _delay_sec
         .import _convert_to_hex
@@ -30,3 +32,4 @@
         .endif
         jsr convert_hex_to_dec
         .endmacro
+.endif

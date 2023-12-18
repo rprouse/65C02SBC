@@ -1,3 +1,5 @@
+.ifndef __LCD_INC__
+__LCD_INC__ := 1
         .include "zeropage.inc"
         .import _lcd_init
         .import _lcd_print
@@ -21,7 +23,7 @@ LCD_DM_CURSOR_BLINK     = %00000001
 LCD_DM_CURSOR_OFF       = %00000000
 LCD_DM_CURSOR_ON        = %00000010
 LCD_DM_DISPLAY_OFF      = %00000000
-LCD_DM_DISPLAY_ON       = %00000100  
+LCD_DM_DISPLAY_ON       = %00000100
 
         .macro write_lcd string
         pha
@@ -59,3 +61,4 @@ LCD_DM_DISPLAY_ON       = %00000100
         jsr lcd_define_char
         pla
         .endmacro
+.endif

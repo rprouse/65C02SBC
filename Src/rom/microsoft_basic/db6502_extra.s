@@ -4,6 +4,8 @@
       .include "acia.inc"
       .include "syscalls.inc"
 
+      .export init_basic
+
 .segment "CODE"
 ; ISCNTC:
 ;         jmp     MONISCNTC
@@ -19,7 +21,7 @@ ISCNTC:
           jmp MONISCNTC
 ;!!! *used*to* run into "STOP"
 
-init:
+init_basic:
 
       ldx #$ff
       txs
@@ -157,8 +159,10 @@ SYS:
   jsr     GETADR
   jmp     (LINNUM)
 
+.ifndef SPARK1
 .segment "VECTORS"
 
 .word   $0000
-.word   init
+.word   init_basic
 .word   _interrupt_handler
+.endif

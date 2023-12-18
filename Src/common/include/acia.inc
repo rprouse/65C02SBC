@@ -1,3 +1,5 @@
+.ifndef __ACIA_INC__
+__ACIA_INC__ := 1
         .include "zeropage.inc"
 
         .import _acia_init
@@ -27,3 +29,4 @@ ACIA_NO_DATA_AVAILABLE = $00
         plx
         pla
         .endmacro
+.endif
