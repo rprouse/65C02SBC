@@ -441,7 +441,13 @@ QT_BASIC:
     .ifdef MICROTAN
         .byte   "(C) 1980 MICROSOFT"
     .else
-        .byte   "COPYRIGHT 1977 BY MICROSOFT CO."
+        .byte   "COPYRIGHT 1977 BY MICROSOFT"
+      .ifdef DB6502
+        .byte CR,LF
+        .byte "COPYRIGHT 2023 BY ROB PROUSE"
+        .byte CR,LF
+        .byte "https://8bitlabs.ca"
+      .endif
     .endif
         .byte   CR,LF,0
   .endif
