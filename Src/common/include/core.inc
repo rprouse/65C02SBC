@@ -1,3 +1,5 @@
+.ifndef __CORE_INC__
+__CORE_INC__ := 1
         .import _system_init
         .import _interrupt_handler
         .import _register_system_break
@@ -31,7 +33,7 @@
         .endif
         jsr _register_user_break
         .endmacro
-        
+
         .macro register_user_irq address
         .if (.match (.left (1, {address}), #))
             ; immediate mode
@@ -44,3 +46,4 @@
         .endif
         jsr _register_user_irq
         .endmacro
+.endif

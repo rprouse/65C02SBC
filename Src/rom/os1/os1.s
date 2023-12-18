@@ -5,18 +5,23 @@
       .include "acia.inc"
       .include "syscalls.inc"
 
+SPARK1 := 1
+
+      .include "../microsoft_basic/msbasic.s"
+
       .import _run_shell
       .export os_version
+      .export init_os
 
       .segment "VECTORS"
 
       .word   $0000
-      .word   init
+      .word   init_os
       .word   _interrupt_handler
 
       .code
 
-init:
+init_os:
       ; clean up stack and zeropage
       ldx #$00
 @clean_stack_loop:
@@ -56,12 +61,12 @@ init:
       jsr _run_shell
       ; Disable interrupt processing during init
       sei
-      jmp init
+      jmp init_os
 
       .segment "RODATA"
 
 os_version:
-      .asciiz "Spark/1 v0.5"
+      .asciiz "Spark/1 v0.6"
 instruction:
       .asciiz "Awaiting serial"
 eightbitlabs:

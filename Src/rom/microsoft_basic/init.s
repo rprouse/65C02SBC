@@ -412,7 +412,7 @@ QT_BYTES_FREE:
   .endif
 QT_BASIC:
   .ifdef DB6502
-        .byte   "65C02 SBC BASIC VERSION 1.1"
+        .byte   "65C02 SPARK/1 BASIC VERSION 1.2"
   .endif
   .ifdef OSI
         .byte   "OSI 6502 BASIC VERSION 1.0 REV 3.2"
@@ -441,7 +441,13 @@ QT_BASIC:
     .ifdef MICROTAN
         .byte   "(C) 1980 MICROSOFT"
     .else
-        .byte   "COPYRIGHT 1977 BY MICROSOFT CO."
+        .byte   "COPYRIGHT 1977 BY MICROSOFT"
+      .ifdef DB6502
+        .byte CR,LF
+        .byte "COPYRIGHT 2023 BY ROB PROUSE"
+        .byte CR,LF
+        .byte "https://8bitlabs.ca"
+      .endif
     .endif
         .byte   CR,LF,0
   .endif

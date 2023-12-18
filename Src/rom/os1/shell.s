@@ -12,6 +12,7 @@
         .include "macros.inc"
 
         .export _run_shell
+        .import init_basic
         .import os_version
         .import _run_monitor
         .import __ROM_START__
@@ -99,6 +100,11 @@ _process_led:
 _process_monitor:
         writeln_tty #msgmonitor
         jsr _run_monitor
+        rts
+
+_process_basic:
+        writeln_tty #msgbasic
+        jsr init_basic          ; Should this just be a jump?
         rts
 
 _process_info:
@@ -195,6 +201,8 @@ msgrun:
         .asciiz "Running program..."
 msgmonitor:
         .asciiz "Running monitor..."
+msgbasic:
+        .asciiz "Running MS BASIC..."
 msginfo:
         .asciiz "Spark/1 Sys Info"
 clock_msg1:
@@ -239,6 +247,7 @@ menu:
         menuitem load_cmd,    1, load_desc,    _process_load
         menuitem run_cmd,     1, run_desc,     _process_run
         menuitem monitor_cmd, 1, monitor_desc, _process_monitor
+        menuitem basic_cmd,   1, basic_desc,   _process_basic
         menuitem led_cmd,     2, led_desc,     _process_led
         menuitem info_cmd,    1, info_desc,    _process_info
         endmenu
@@ -251,6 +260,10 @@ run_cmd:
         .asciiz "RUN"
 run_desc:
         .asciiz "RUN - run loaded app"
+basic_cmd:
+        .asciiz "BASIC"
+basic_desc:
+        .asciiz "BASIC - run MS BASIC"
 monitor_cmd:
         .asciiz "MON"
 monitor_desc:
